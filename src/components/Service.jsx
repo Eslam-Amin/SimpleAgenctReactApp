@@ -115,7 +115,7 @@ const CloseButton = styled.button`
     right: 5px;
     top: 30%;
     width: 20%;
-    display: ${props => !props.isCloseShown && "none"};
+    display: ${props => !props.isCloseShown && !props.smallScreen && ("none")};
 `
 function Service({ smallScreen }) {
     const [isCloseShown, setCloseShown] = useState(false)
@@ -131,7 +131,7 @@ function Service({ smallScreen }) {
                     controls
                     src="https://player.vimeo.com/external/449759244.sd.mp4?s=d5f3da46ddc17aa69a7de84f1e420610ebd2a391&profile_id=139&oauth2_token_id=57447761"
                 />
-                <CloseButton isCloseShown={isCloseShown} onClick={() => { setVideoOpen(false); setCloseShown(false) }}>Close</CloseButton>
+                <CloseButton isCloseShown={isVideoOpened} onClick={() => { setVideoOpen(false); setCloseShown(false) }}>Close</CloseButton>
 
             </Left>
             <Right>
@@ -154,7 +154,7 @@ function Service({ smallScreen }) {
                     </Button>
                 </Wrapper>
             </Right>
-            {smallScreen && isVideoOpened &&
+            {(smallScreen && isVideoOpened) &&
                 (<Modal>
                     <Video
                         isVideoOpened={isVideoOpened}
@@ -163,7 +163,7 @@ function Service({ smallScreen }) {
                         controls
                         src="https://player.vimeo.com/external/449759244.sd.mp4?s=d5f3da46ddc17aa69a7de84f1e420610ebd2a391&profile_id=139&oauth2_token_id=57447761"
                     />
-                    <CloseButton onClick={() => setVideoOpen(false)}>Close</CloseButton>
+                    <CloseButton isCloseShown={isVideoOpened} onClick={() => setVideoOpen(false)}>Close</CloseButton>
                 </Modal>)}
         </Container>
     )
